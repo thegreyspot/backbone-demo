@@ -20,13 +20,20 @@
 			{{{text}}}
 		</script>
 		<script type="text/jquery-x-template" id="form-template">
-			<strong>Comment edit</strong>
-			<form>
-				<input type="text" name="author" value="{{author}}" placeholder="Author name" class="author" /><br />
-				<textarea name="text" placeholder"Comment text" class="text">{{text}}</textarea>
-				<button class="submit"> Submit </button>
-				<button class="cancel"> Cancel </button>
-			</form>
+			<div id="background">
+				<div id="form">
+					<strong>Comment edit</strong>
+					<form>
+						<input type="text" name="author" value="{{author}}" placeholder="Author name" class="author" /><br />
+						<textarea name="text" placeholder"Comment text" class="text">{{text}}</textarea>
+						<div id="buttons">
+							<button class="submit"> Submit </button>
+							<button class="cancel"> Cancel </button>
+							<div id="error"></div>
+						</div>
+					</form>
+				</div>
+			</div>
 		</script>
 		
 		<!-- Application files -->

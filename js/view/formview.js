@@ -29,7 +29,9 @@ var FormView = Backbone.View.extend(
 		 */
 		events: {
 			'click .submit': 'submit',
-			'click .cancel': 'cancel'
+			'click .cancel': 'cancel',
+			'click #background': 'cancel' ,
+			'click #form' : 'doNothing'
 		},
 		
 		/**
@@ -51,6 +53,7 @@ var FormView = Backbone.View.extend(
 				text: this.model.get('text')
 			};
 			this.$el.html(Mustache.to_html(template, template_vars));
+			//$('html').on('click', this.cancel, this);
 			return this;
 		},
 	
@@ -60,6 +63,11 @@ var FormView = Backbone.View.extend(
 		 * @returns {Boolean} Returns false to stop propagation
 		 */
 		submit: function () {
+			//Question 4
+			if(this.$el.find('.text').val() ==""  || this.$el.find('.author').val() =="" ){
+				this.$el.find("#error").html("<h1>Please fill out everything</h1>");
+				return false;
+			}
 			// set values from form on model
 			this.model.set({
 				author: this.$el.find('.author').val(),
@@ -86,9 +94,31 @@ var FormView = Backbone.View.extend(
 		* @returns {Boolean} Returns false to stop propagation
 		*/
 		cancel: function () {
+			//Question 1
+			if(this.$el.find('.text').val() !=""){
+				temp = confirm("Are you sure you don't want to save the changes?");
+				if(!temp)
+					return false;
+			}
+				
 			// clean up form
 			this.remove();
 			return false;
+		},
+		
+		doNothing: function(){
+			//do nothing
+			return false;
+		},
+		/**
+		* Handles the click outside of the modal
+		* Cleans up form view from DOM
+		* @returns {Boolean} Returns false to stop propagation
+		*/
+		modalHandler: function (e) {
+			//Question 3
+			//If click was inside the modal... do nothing
+			console.log(e);
 		},
 		
 		/**
